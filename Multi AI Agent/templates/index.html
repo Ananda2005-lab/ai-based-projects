@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroSync AI Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="theme-cyberpunk"> <!-- Default Theme -->
+
+    <div class="background-shapes"></div>
+
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <i class="fa-solid fa-microchip"></i>
+                <h2>NeuroSync</h2>
+            </div>
+            
+            <nav class="menu">
+                <a href="#" class="active"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="#" onclick="openModal('settingsModal')"><i class="fa-solid fa-gear"></i> Settings</a>
+                <a href="#" onclick="openModal('helpModal')"><i class="fa-solid fa-circle-question"></i> Help</a>
+            </nav>
+
+            <div class="history-section">
+                <h3><i class="fa-solid fa-clock-rotate-left"></i> History</h3>
+                <div id="historyList" class="history-list">
+                    <!-- History items will appear here -->
+                    <div class="empty-history">No history yet</div>
+                </div>
+            </div>
+
+            <div class="theme-selector">
+                <label>Theme</label>
+                <select id="themeSelect" onchange="changeTheme(this.value)">
+                    <option value="theme-cyberpunk">Cyberpunk</option>
+                    <option value="theme-glass">Glassmorphism</option>
+                    <option value="theme-minimal">Minimal Light</option>
+                    <option value="theme-ocean">Ocean Deep</option>
+                    <option value="theme-sunset">Sunset Vibes</option>
+                    <option value="theme-forest">Forest Green</option>
+                </select>
+            </div>
+
+            <div class="system-status">
+                <div class="status-dot online"></div>
+                <span>Ollama Connected</span>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <header>
+                <div class="header-title">
+                    <h1>Parallel Agent Swarm</h1>
+                    <p>4 Agents thinking simultaneously • 1 Final Output</p>
+                </div>
+                <button class="btn-secondary" onclick="clearOutput()">Clear Canvas</button>
+            </header>
+
+            <div class="control-panel glass-panel">
+                <div class="input-group main-input">
+                    <input type="text" id="topicInput" placeholder="Enter a complex topic...">
+                    <button id="generateBtn" onclick="startGeneration()">
+                        <i class="fa-solid fa-bolt"></i> Initiate Swarm
+                    </button>
+                </div>
+                <div class="quick-chips">
+                    <button class="chip" onclick="setTopic('Future of Quantum Computing')">Quantum Computing</button>
+                    <button class="chip" onclick="setTopic('Mars Colonization Challenges')">Mars Colony</button>
+                    <button class="chip" onclick="setTopic('Global Economic Trends 2026')">Economy 2026</button>
+                </div>
+            </div>
+
+            <div class="workspace-grid">
+                <div class="panel thinking-panel">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-terminal"></i> Live Thought Stream
+                        <span class="badge">Real-time</span>
+                    </div>
+                    <div id="thinkingLog" class="terminal-window">
+                        <div class="log-entry system">System Ready.</div>
+                    </div>
+                </div>
+
+                <div class="panel output-panel">
+                    <div class="panel-header">
+                        <i class="fa-solid fa-file-contract"></i> Final Aggregated Report
+                        <button class="btn-sm" onclick="copyFinal()"><i class="fa-regular fa-copy"></i></button>
+                    </div>
+                    <div id="finalOutput" class="final-content">
+                        <div class="placeholder-text">Final output will appear here...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODALS (Same as before) -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close" onclick="closeModal('settingsModal')">&times;</span>
+            <h2>Settings</h2>
+            <p>Theme selection is now in the Sidebar!</p>
+        </div>
+    </div>
+    <div id="helpModal" class="modal">
+        <div class="modal-content glass-panel">
+            <span class="close" onclick="closeModal('helpModal')">&times;</span>
+            <h2>Help</h2>
+            <p>Agents work in parallel. History is saved automatically.</p>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

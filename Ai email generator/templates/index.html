@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block page_title %}Generate email{% endblock %}
+
+{% block content %}
+  <form method="post" class="form">
+    <div class="field">
+      <label for="topic">Email topic</label>
+      <textarea
+        id="topic"
+        name="topic"
+        rows="8"
+        placeholder="Example: Job application for Python Flask developer role"
+        required
+      >{{ topic or "" }}</textarea>
+    </div>
+
+    <div class="actions">
+      <span class="hint">Model: {{ ollama_model }}</span>
+      <button type="submit">Generate Email</button>
+    </div>
+  </form>
+{% endblock %}

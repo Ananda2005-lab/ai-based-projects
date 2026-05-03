@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block page_title %}Review and send{% endblock %}
+
+{% block content %}
+  <form method="post" action="{{ url_for('send') }}" class="form">
+    <input type="hidden" name="topic" value="{{ topic }}">
+
+    <div class="form-grid">
+      <div class="field">
+        <label for="receiver_email">Receiver email</label>
+        <input
+          id="receiver_email"
+          name="receiver_email"
+          type="email"
+          value="{{ receiver_email or '' }}"
+          placeholder="receiver@example.com"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="subject">Subject</label>
+        <input
+          id="subject"
+          name="subject"
+          type="text"
+          value="{{ subject }}"
+          required
+        >
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="email_content">Generated email content</label>
+      <textarea id="email_content" name="email_content" rows="15" required>{{ email_content }}</textarea>
+    </div>
+
+    <div class="actions">
+      <a class="secondary-link" href="{{ url_for('index') }}">Start over</a>
+      <button type="submit">Send Email</button>
+    </div>
+  </form>
+{% endblock %}

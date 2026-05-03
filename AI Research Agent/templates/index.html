@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Research Report Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="page">
+        <section class="workspace">
+            <header class="intro">
+                <div>
+                    <p class="eyebrow">AI Research Assistant</p>
+                    <h1>Generate a detailed research report</h1>
+                    <p>Enter any topic and get a structured report with introduction, key points, analysis, and conclusion.</p>
+                </div>
+                <div class="model-pill">{{ model }}</div>
+            </header>
+
+            <div class="app-layout">
+                <section class="main-panel">
+                    <form method="post" class="topic-form">
+                        <label for="topic">Research topic</label>
+                        <div class="input-row">
+                            <input
+                                id="topic"
+                                name="topic"
+                                type="text"
+                                value="{{ topic }}"
+                                placeholder="Example: The impact of renewable energy on rural economies"
+                                required
+                            >
+                            <button type="submit">Generate Report</button>
+                        </div>
+                        <p class="hint">Your reports are saved in history on this device.</p>
+                    </form>
+
+                    {% if error %}
+                        <div class="message error">{{ error }}</div>
+                    {% endif %}
+
+                    {% if selected_report %}
+                        <article class="report">
+                            <div class="report-header">
+                                <p class="eyebrow">Generated Report</p>
+                                <h2>{{ selected_report.topic }}</h2>
+                                <span>{{ selected_report.created_at }}</span>
+                            </div>
+                            <div class="report-body">
+                                {{ selected_report.report | markdown_to_html }}
+                            </div>
+                        </article>
+                    {% else %}
+                        <article class="empty-state">
+                            <p class="eyebrow">Ready</p>
+                            <h2>Start with a topic</h2>
+                            <p>Your generated report will appear here with bold headings, colored sections, and bullet points.</p>
+                        </article>
+                    {% endif %}
+                </section>
+
+                <aside class="history-panel">
+                    <div class="history-heading">
+                        <div>
+                            <p class="eyebrow">Saved</p>
+                            <h2>History</h2>
+                        </div>
+                        <span>{{ history|length }}</span>
+                    </div>
+
+                    {% if history %}
+                        <div class="history-list">
+                            {% for item in history %}
+                                <div class="history-item {% if selected_report and selected_report.id == item.id %}active{% endif %}">
+                                    <a href="{{ url_for('index', report_id=item.id) }}">
+                                        <strong>{{ item.topic }}</strong>
+                                        <small>{{ item.created_at }}</small>
+                                    </a>
+                                    <form method="post" action="{{ url_for('delete_report', report_id=item.id) }}">
+                                        <button type="submit" class="delete-button">Delete</button>
+                                    </form>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="history-empty">No reports yet.</p>
+                    {% endif %}
+                </aside>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

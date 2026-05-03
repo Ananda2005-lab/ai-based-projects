@@ -1,0 +1,181 @@
+/* static/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+:root {
+    --bg-color: #0f172a;       /* Dark Blue/Black */
+    --card-bg: #1e293b;        /* Slightly lighter dark */
+    --primary: #8b5cf6;        /* Violet/Purple */
+    --primary-hover: #7c3aed;
+    --text-main: #f8fafc;      /* White-ish */
+    --text-muted: #94a3b8;     /* Grey */
+    --border: #334155;
+    --success: #10b981;
+    --error: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at top right, #1e1b4b, transparent 40%),
+                      radial-gradient(circle at bottom left, #312e81, transparent 40%);
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(30, 41, 59, 0.7); /* Glass effect */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    margin: 20px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #c084fc, #6366f1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+
+    background-clip: text;
+    
+    font-weight: 700;
+}
+
+p.subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+textarea {
+    width: 100%;
+    height: 180px;
+    background-color: #0f172a;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px;
+    color: var(--text-main);
+    font-size: 1rem;
+    resize: vertical;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+}
+
+textarea::placeholder {
+    color: #475569;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), #6366f1);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Result Box Styling */
+.result-box {
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: var(--success);
+    font-weight: 600;
+}
+
+.summary-text {
+    background-color: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+    line-height: 1.7;
+    color: #d1fae5;
+    white-space: pre-wrap;
+}
+
+/* Error Box Styling */
+.error-box {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 12px;
+    color: #fca5a5;
+    animation: shake 0.4s ease-in-out;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}

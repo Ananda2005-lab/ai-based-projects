@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center Wrapper */
+.wrapper {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Main Card */
+.card {
+    max-width: 420px;
+    margin: auto;
+    background: #111827;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* Heading */
+h1 {
+    text-align: center;
+    color: #22c55e;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #9ca3af;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+textarea, input {
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #1f2937;
+    color: white;
+    outline: none;
+    font-size: 14px;
+}
+
+textarea {
+    resize: none;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 20px rgba(34,197,94,0.5);
+}
+
+/* Preview */
+.preview {
+    margin-top: 20px;
+    background: #1f2937;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.preview h3 {
+    margin-bottom: 5px;
+}
+
+/* Alerts */
+.success {
+    margin-top: 10px;
+    background: rgba(34,197,94,0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.error {
+    margin-top: 10px;
+    background: rgba(239,68,68,0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+/* Default Theme (Dark) */
+:root {
+    --bg: #0f172a;
+    --card: #111827;
+    --input: #1f2937;
+    --text: #ffffff;
+    --subtext: #9ca3af;
+    --primary: #22c55e;
+}
+
+/* Light Theme */
+body[data-theme="light"] {
+    --bg: #f5f5f5;
+    --card: #ffffff;
+    --input: #e5e7eb;
+    --text: #111;
+    --subtext: #555;
+    --primary: #2563eb;
+}
+
+/* Neon Theme */
+body[data-theme="neon"] {
+    --bg: #000;
+    --card: #0a0a0a;
+    --input: #111;
+    --text: #00ffcc;
+    --subtext: #00ffaa;
+    --primary: #00ffcc;
+}
+
+/* Purple Theme */
+body[data-theme="purple"] {
+    --bg: linear-gradient(135deg, #667eea, #764ba2);
+    --card: #2b2b5f;
+    --input: #3b3b7a;
+    --text: #fff;
+    --subtext: #ddd;
+    --primary: #ff7efc;
+}
+
+/* WhatsApp Theme */
+body[data-theme="whatsapp"] {
+    --bg: #e5ddd5;
+    --card: #ffffff;
+    --input: #f0f0f0;
+    --text: #111;
+    --subtext: #555;
+    --primary: #25D366;
+}
+
+/* Apply variables */
+body {
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+}
+
+/* Card */
+.card {
+    background: var(--card);
+}
+
+/* Inputs */
+textarea, input {
+    background: var(--input);
+    color: var(--text);
+}
+
+/* Labels */
+label {
+    color: var(--subtext);
+}
+
+/* Button */
+.btn {
+    background: var(--primary);
+    color: white;
+}
+
+/* Title */
+h1 {
+    color: var(--primary);
+}
+
+/* Theme dropdown */
+.theme-switcher {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+}
+
+.theme-switcher select {
+    padding: 6px;
+    border-radius: 8px;
+}

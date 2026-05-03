@@ -1,0 +1,46 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Summarizer Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>⚡ AI Summarizer</h1>
+        <p class="subtitle">Fast, Private, and Local. Paste your notes below.</p>
+        
+        <form method="POST">
+            <div class="form-group">
+                <label for="input_text">Your Text</label>
+                <textarea id="input_text" name="input_text" placeholder="Paste long articles, meeting notes, or essays here...">{{ input_text }}</textarea>
+            </div>
+            
+            <button type="submit">🚀 Generate Summary</button>
+        </form>
+
+        {% if error %}
+            <div class="error-box">
+                ❌ {{ error }}
+            </div>
+        {% endif %}
+
+        {% if summary %}
+            <div class="result-box">
+                <div class="result-header">
+                    ✨ Summary Generated
+                </div>
+                <div class="summary-text">{{ summary }}</div>
+            </div>
+        {% endif %}
+
+        <div class="footer">
+            Running on Ollama • Model: {{ model_name if model_name else 'Local AI' }}
+        </div>
+    </div>
+
+</body>
+</html>

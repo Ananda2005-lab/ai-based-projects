@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PDF Q&A with Ollama</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace">
+        <aside class="sidebar">
+          <div class="brand">
+            <span class="brand-mark">PDF</span>
+            <div>
+              <p class="eyebrow">Local PDF Q&A</p>
+              <h1>Ask your PDF</h1>
+            </div>
+          </div>
+
+          <div class="model-card">
+            <span class="label">Running model</span>
+            <strong>{{ model_name }}</strong>
+            <span>Powered by local Ollama</span>
+          </div>
+
+          <form class="upload-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="action" value="upload">
+            <label for="pdf">Upload PDF</label>
+            <div class="drop-zone">
+              <input id="pdf" name="pdf" type="file" accept="application/pdf" required>
+              <span class="drop-title">Choose a PDF file</span>
+              <span class="drop-copy">Text-based PDFs work best</span>
+            </div>
+            <button class="wide" type="submit">Upload document</button>
+          </form>
+
+          {% if document %}
+            <div class="document-card">
+              <span class="label">Active PDF</span>
+              <strong>{{ document.filename }}</strong>
+              <span>{{ document.chunks|length }} chunks indexed</span>
+              <form method="post" action="{{ url_for('reset') }}">
+                <button class="secondary wide" type="submit">Clear PDF</button>
+              </form>
+            </div>
+          {% else %}
+            <div class="empty-card">
+              Upload a PDF to unlock the question box.
+            </div>
+          {% endif %}
+        </aside>
+
+        <section class="chat-panel">
+          <div class="chat-header">
+            <div>
+              <p class="eyebrow">Document chat</p>
+              <h2>Ask focused questions from your PDF</h2>
+            </div>
+            <span class="status {% if document %}ready{% endif %}">
+              {% if document %}Ready{% else %}Waiting for PDF{% endif %}
+            </span>
+          </div>
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="alerts">
+                {% for category, message in messages %}
+                  <p class="alert {{ category }}">{{ message }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+
+          <div class="conversation">
+            {% if answer %}
+              <section class="message answer">
+                <span class="avatar">AI</span>
+                <div>
+                  <h3>Answer</h3>
+                  <p>{{ answer }}</p>
+                </div>
+              </section>
+            {% else %}
+              <section class="message starter">
+                <span class="avatar">QA</span>
+                <div>
+                  <h3>Ready for questions</h3>
+                  <p>Upload a PDF, then ask about definitions, summaries, steps, policies, tables, or key points from the document.</p>
+                </div>
+              </section>
+            {% endif %}
+
+            {% if chunks %}
+              <section class="sources">
+                <h3>Retrieved PDF context</h3>
+                {% for chunk in chunks %}
+                  <details>
+                    <summary>Chunk {{ chunk.index }} - score {{ chunk.score }}</summary>
+                    <p>{{ chunk.text }}</p>
+                  </details>
+                {% endfor %}
+              </section>
+            {% endif %}
+          </div>
+
+          <form class="question-form" method="post">
+            <input type="hidden" name="action" value="ask">
+            <label for="question">Your question</label>
+            <div class="composer">
+              <textarea id="question" name="question" rows="4" placeholder="Example: What are the main points in this PDF?" required>{{ question }}</textarea>
+              <button type="submit" {% if not document %}disabled{% endif %}>Ask Ollama</button>
+            </div>
+          </form>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

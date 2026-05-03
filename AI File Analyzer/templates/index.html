@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart File Organizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Ollama powered</p>
+          <h1>Smart File Organizer</h1>
+          <p class="subhead">Scan a folder, rename messy files with <strong>gemma:2b</strong>, and organize everything into clean categories.</p>
+        </div>
+        <div class="status-orb">
+          <span>{{ plans|length }}</span>
+          <small>previewed</small>
+        </div>
+      </section>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="messages">
+            {% for category, message in messages %}
+              <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <section class="control-panel">
+        <form method="post" class="scan-form">
+          <label>
+            <span>Folder path</span>
+            <div class="folder-picker">
+              <input id="folder-input" name="folder" value="{{ folder }}" placeholder="C:\Users\anand\Downloads" autocomplete="off">
+              <button class="glow glow-cyan" id="choose-folder" type="button">Choose Folder</button>
+            </div>
+          </label>
+
+          <label>
+            <span>Ollama model</span>
+            <input name="model" value="{{ model }}" autocomplete="off">
+          </label>
+
+          <button class="glow glow-pink" name="action" value="scan" type="submit">Scan + Preview</button>
+        </form>
+      </section>
+
+      <section class="preview-layout">
+        <div class="preview-head">
+          <div>
+            <p class="eyebrow">Rename plan</p>
+            <h2>Preview</h2>
+          </div>
+          <form method="post">
+            <button class="glow glow-green" name="action" value="organize" type="submit" {% if not plans %}disabled{% endif %}>Organize Files</button>
+          </form>
+        </div>
+
+        {% if plans %}
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Old file</th>
+                  <th>New file</th>
+                  <th>Folder</th>
+                  <th>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for plan in plans %}
+                  <tr>
+                    <td>{{ plan.old_name }}</td>
+                    <td>{{ plan.new_name }}</td>
+                    <td><span class="pill">{{ plan.category }}</span></td>
+                    <td>{{ plan.reason }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="empty-state">
+            <h3>No preview yet</h3>
+            <p>Enter a folder path and scan it. Nothing is moved until you click the green organize button.</p>
+          </div>
+        {% endif %}
+      </section>
+    </main>
+    <script>
+      const chooseButton = document.querySelector("#choose-folder");
+      const folderInput = document.querySelector("#folder-input");
+
+      chooseButton.addEventListener("click", async () => {
+        chooseButton.textContent = "Opening...";
+        chooseButton.disabled = true;
+
+        try {
+          const response = await fetch("/choose-folder", { method: "POST" });
+          const data = await response.json();
+          if (data.folder) {
+            folderInput.value = data.folder;
+          }
+        } finally {
+          chooseButton.textContent = "Choose Folder";
+          chooseButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

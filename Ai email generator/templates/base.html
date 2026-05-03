@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Email Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="brand-panel" aria-label="Application summary">
+        <div class="brand-mark">AI</div>
+        <div>
+          <p class="eyebrow">Ollama powered</p>
+          <h1>AI Email Generator</h1>
+          <p class="lead">Create crisp, professional emails with a local model and send them through SMTP.</p>
+        </div>
+
+        <div class="model-card">
+          <span class="pulse"></span>
+          <div>
+            <span class="meta-label">Active model</span>
+            <strong>{{ ollama_model }}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="work-panel">
+        <header class="topbar">
+          <div>
+            <p class="section-kicker">Workspace</p>
+            <h2>{% block page_title %}{% endblock %}</h2>
+          </div>
+          {% if smtp_ready %}
+            <span class="status-pill">SMTP Configured</span>
+          {% else %}
+            <span class="status-pill warning">SMTP Setup Needed</span>
+          {% endif %}
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="messages">
+              {% for category, message in messages %}
+                <div class="message {{ category }}">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+      </section>
+    </main>
+  </body>
+</html>

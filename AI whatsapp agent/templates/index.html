@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AI WhatsApp Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="theme-switcher">
+    <select onchange="setTheme(this.value)">
+        <option value="dark">🌙 Dark</option>
+        <option value="light">☀️ Light</option>
+        <option value="neon">⚡ Neon</option>
+        <option value="purple">💜 Purple</option>
+        <option value="whatsapp">🟢 WhatsApp</option>
+    </select>
+</div>
+
+<div class="wrapper">
+
+    <div class="card">
+
+        <h1>🚀 AI WhatsApp Sender</h1>
+        <p class="subtitle">Generate & schedule smart messages instantly</p>
+
+        <form method="POST">
+
+            <div class="input-group">
+                <label>Message Topic</label>
+                <textarea name="topic" placeholder="e.g. Meeting reminder for tomorrow"></textarea>
+            </div>
+
+            <div class="input-group">
+                <label>Phone Number</label>
+                <input type="text" name="phone_number" placeholder="+91XXXXXXXXXX">
+            </div>
+
+            <div class="input-group">
+                <label>Send Time</label>
+                <input type="time" name="send_time">
+            </div>
+
+            <button class="btn">🚀 Generate & Send</button>
+
+        </form>
+
+        {% if generated_message %}
+        <div class="preview">
+            <h3>💬 Preview</h3>
+            <p>{{ generated_message }}</p>
+        </div>
+        {% endif %}
+
+        {% if confirmation %}
+        <div class="success">{{ confirmation }}</div>
+        {% endif %}
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script>
+function setTheme(theme) {
+    document.body.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+}
+
+// Load saved theme
+window.onload = () => {
+    let saved = localStorage.getItem("theme") || "dark";
+    document.body.setAttribute("data-theme", saved);
+}
+</script>
+
+</body>
+
+</html>
