@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Medicine Scanner & Explainer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body data-theme="light-medical">
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">+</span>
+        <div>
+          <strong>MediScan AI</strong>
+          <small>Medicine intelligence</small>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="Primary navigation">
+        <button class="nav-item active" data-section="dashboard">D <span>Dashboard</span></button>
+        <button class="nav-item" data-section="scanner">S <span>Scan Medicine</span></button>
+        <button class="nav-item" data-section="history">H <span>History</span></button>
+        <button class="nav-item" data-section="assistant">A <span>AI Assistant</span></button>
+        <button class="nav-item" data-section="reminders">R <span>Reminders</span></button>
+        <button class="nav-item" data-section="settings">G <span>Settings</span></button>
+      </nav>
+
+      <div class="safety-card">
+        <span>Medical Notice</span>
+        <p>Use this app for learning and label understanding only. Confirm decisions with a doctor or pharmacist.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Futuristic Healthcare AI</p>
+          <h1>AI Medicine Scanner & Explainer</h1>
+          <p>Understand your medicines instantly with AI</p>
+        </div>
+        <label class="theme-picker">
+          <span>Theme</span>
+          <select id="themeSelect">
+            <option value="light-medical">Light Medical</option>
+            <option value="dark-medical">Dark Medical</option>
+            <option value="neon-healthcare">Neon Healthcare</option>
+            <option value="blue-clinical">Blue Clinical</option>
+            <option value="minimal-white">Minimal White</option>
+            <option value="aurora-glass">Aurora Glass</option>
+            <option value="emerald-luxe">Emerald Luxe</option>
+            <option value="royal-violet">Royal Violet</option>
+            <option value="black-gold">Black Gold</option>
+          </select>
+        </label>
+        <label class="theme-picker">
+          <span>Language</span>
+          <select id="languageSelect">
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="or">Odia</option>
+            <option value="bn">Bengali</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="hero section-panel" data-view="dashboard scanner">
+        <div class="hero-copy">
+          <p class="eyebrow">OCR - Expiry - Interactions - Voice</p>
+          <h2>Scan labels, decode medical text, and get simple guidance in seconds.</h2>
+          <div class="hero-actions">
+            <button class="primary-btn" id="jumpToUpload">Start Scan</button>
+            <button class="ghost-btn" id="demoInteractionBtn">Check Demo Interaction</button>
+          </div>
+        </div>
+        <div class="scanner-orbit" aria-hidden="true">
+          <div class="pulse-ring"></div>
+          <div class="scan-frame">
+            <div class="scan-line"></div>
+            <span>AI SCAN</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid-two section-panel" data-view="dashboard scanner">
+        <div class="upload-panel" id="uploadPanel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Image Upload</p>
+              <h3>Upload medicine photo</h3>
+            </div>
+            <span class="limit-pill">Max 20 MB</span>
+          </div>
+
+          <label class="drop-zone" id="dropZone">
+            <input type="file" id="imageInput" accept=".jpg,.jpeg,.png,image/*" capture="environment" multiple>
+            <span class="upload-icon">+</span>
+            <strong>Upload front, back, side, and expiry close-up photos</strong>
+            <small>Accepted: jpg, jpeg, png - up to 6 photos, total 20 MB</small>
+          </label>
+
+          <div class="file-meta" id="fileMeta" hidden>
+            <div class="preview-grid" id="previewGrid" aria-label="Uploaded medicine previews"></div>
+            <div>
+              <strong id="fileName">No file selected</strong>
+              <div class="progress-track"><span id="uploadProgress"></span></div>
+            </div>
+          </div>
+
+          <button class="primary-btn full" id="scanButton" disabled>Scan Medicine</button>
+          <p class="message" id="uploadMessage"></p>
+        </div>
+
+        <div class="scan-status-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">AI Scanning</p>
+              <h3>Live process</h3>
+            </div>
+            <span class="status-dot" id="scanDot"></span>
+          </div>
+          <ol class="scan-steps" id="scanSteps">
+            <li>Scanning medicine...</li>
+            <li>Extracting text...</li>
+            <li>Identifying medicine...</li>
+            <li>Checking expiry...</li>
+            <li>Generating explanation...</li>
+          </ol>
+          <div class="ai-progress"><span id="aiProgress"></span></div>
+        </div>
+      </section>
+
+      <section class="results section-panel" id="resultsPanel" data-view="dashboard scanner" hidden>
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Result Dashboard</p>
+            <h3 id="resultTitle">Medicine details</h3>
+          </div>
+          <div class="result-actions">
+            <button class="icon-btn" id="favoriteButton" title="Save favorite">+</button>
+            <button class="icon-btn" id="voiceButton" title="Play voice explanation">Play</button>
+          </div>
+        </div>
+
+        <div class="clinical-summary">
+          <div>
+            <span>AI Clinical Snapshot</span>
+            <h2 id="snapshotName">-</h2>
+            <p id="snapshotSummary">-</p>
+          </div>
+          <div class="snapshot-metrics">
+            <article>
+              <strong id="confidenceValue">-</strong>
+              <small>Confidence</small>
+            </article>
+            <article>
+              <strong id="qualityValue">-</strong>
+              <small>Image Quality</small>
+            </article>
+            <article>
+              <strong id="languageValue">-</strong>
+              <small>Language</small>
+            </article>
+          </div>
+        </div>
+
+        <div class="result-grid">
+          <article class="result-card">
+            <span>Medicine Name</span>
+            <strong id="medicineName">-</strong>
+            <small id="genericName">-</small>
+          </article>
+          <article class="result-card">
+            <span>Composition</span>
+            <strong id="composition">-</strong>
+            <small id="batchNumber">Batch: -</small>
+          </article>
+          <article class="result-card">
+            <span>Expiry Status</span>
+            <strong class="badge" id="expiryBadge">Unknown</strong>
+            <small id="expiryMessage">-</small>
+          </article>
+          <article class="result-card">
+            <span>Usage</span>
+            <p id="usageText">-</p>
+          </article>
+          <article class="result-card dosage-card">
+            <span>Dosage / General Use</span>
+            <p id="dosageText">-</p>
+          </article>
+          <article class="result-card">
+            <span>Side Effects</span>
+            <ul id="sideEffects"></ul>
+          </article>
+          <article class="result-card warning-card">
+            <span>Safety Warnings</span>
+            <ul id="warnings"></ul>
+          </article>
+          <article class="result-card">
+            <span>Storage</span>
+            <p id="storageText">-</p>
+          </article>
+          <article class="result-card">
+            <span>Alternatives</span>
+            <ul id="alternatives"></ul>
+          </article>
+        </div>
+
+        <details class="ocr-box">
+          <summary>Extracted OCR text</summary>
+          <pre id="ocrText"></pre>
+        </details>
+      </section>
+
+      <section class="section-panel" data-view="dashboard history">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Previous Scans</p>
+            <h3>Scan history</h3>
+          </div>
+          <button class="ghost-btn" id="refreshHistory">Refresh</button>
+        </div>
+        <div class="history-list" id="historyList"></div>
+      </section>
+
+      <section class="grid-two section-panel" data-view="dashboard assistant">
+        <div class="chat-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">AI Assistant</p>
+              <h3>Ask a medicine question</h3>
+            </div>
+          </div>
+          <div class="chat-window" id="chatWindow">
+            <div class="bot-bubble">Hello. Ask me about usage, after-food timing, children, side effects, or precautions.</div>
+          </div>
+          <form class="chat-form" id="chatForm">
+            <input id="chatInput" placeholder="Can I take this after food?">
+            <button class="primary-btn" type="submit">Ask</button>
+          </form>
+        </div>
+
+        <div class="interaction-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Drug Interaction Checker</p>
+              <h3>Check combinations</h3>
+            </div>
+          </div>
+          <textarea id="interactionInput" placeholder="Enter medicines separated by commas, e.g. ibuprofen, warfarin"></textarea>
+          <button class="primary-btn full" id="interactionButton">Check Interactions</button>
+          <div class="interaction-results" id="interactionResults"></div>
+        </div>
+      </section>
+
+      <section class="grid-two section-panel" data-view="dashboard reminders">
+        <div class="reminder-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Medicine Reminders</p>
+              <h3>Set reminder</h3>
+            </div>
+          </div>
+          <form class="reminder-form" id="reminderForm">
+            <input id="reminderMedicine" placeholder="Medicine name" required>
+            <input id="reminderDosage" placeholder="Dosage, e.g. 1 tablet">
+            <input id="reminderTime" type="time" required>
+            <input id="reminderNotes" placeholder="Notes">
+            <button class="primary-btn full" type="submit">Save Reminder</button>
+          </form>
+        </div>
+        <div class="reminder-list-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Schedule</p>
+              <h3>Saved reminders</h3>
+            </div>
+          </div>
+          <div class="reminder-list" id="reminderList"></div>
+        </div>
+      </section>
+
+      <section class="section-panel settings-panel" data-view="settings">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Settings</p>
+            <h3>Privacy and safety</h3>
+          </div>
+        </div>
+        <div class="settings-grid">
+          <article>
+            <strong>Local database</strong>
+            <p>Scan results and reminders are saved in SQLite on this machine.</p>
+          </article>
+          <article>
+            <strong>QR / Barcode Scanner</strong>
+            <p>Placeholder module ready for a barcode library such as html5-qrcode.</p>
+          </article>
+          <article>
+            <strong>Nearby Pharmacy Finder</strong>
+            <p>Future feature can connect to maps APIs after location permission.</p>
+          </article>
+          <article>
+            <strong>Emergency Warning Mode</strong>
+            <p>High-severity interaction results are highlighted automatically.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

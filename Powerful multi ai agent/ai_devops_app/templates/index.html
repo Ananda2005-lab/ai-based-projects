@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DevOps - Automated Deployment</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span class="logo-text">DevOps AI</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <button class="nav-item active" data-page="dashboard">
+                <span class="icon">📊</span>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" data-page="upload">
+                <span class="icon">📁</span>
+                <span>Upload</span>
+            </button>
+            <button class="nav-item" data-page="deployments">
+                <span class="icon">🌐</span>
+                <span>Deployments</span>
+            </button>
+            <button class="nav-item" data-page="settings">
+                <span class="icon">⚙️</span>
+                <span>Settings</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="theme-selector">
+                <label for="theme-dropdown">Theme:</label>
+                <select id="theme-dropdown">
+                    <option value="dark">🌙 Dark</option>
+                    <option value="light">☀️ Light</option>
+                    <option value="neon">⚡ Neon</option>
+                    <option value="purple">💜 Purple</option>
+                    <option value="whatsapp">💬 WhatsApp</option>
+                </select>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="page-title">AI DevOps Deployment</h1>
+            <div class="header-actions">
+                <span class="version">v1.0.0</span>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Dashboard Page -->
+            <section id="dashboard-page" class="page active">
+                <div class="dashboard-grid">
+                    <!-- Quick Stats -->
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Total Uploads</div>
+                                <div class="stat-value" id="stat-uploads">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Deployments</div>
+                                <div class="stat-value" id="stat-deployments">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚠️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Errors</div>
+                                <div class="stat-value" id="stat-errors">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⏱️</div>
+                            <div class="stat-info">
+                                <div class="stat-label">Avg Time</div>
+                                <div class="stat-value">2.5m</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="recent-activity">
+                        <h2>Recent Deployments</h2>
+                        <div id="recent-list" class="activity-list">
+                            <p class="empty-state">No deployments yet. Start by uploading a project!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upload Page -->
+            <section id="upload-page" class="page">
+                <div class="upload-container">
+                    <!-- Upload Area -->
+                    <div class="upload-card">
+                        <div class="upload-zone" id="upload-zone">
+                            <div class="upload-icon">📤</div>
+                            <h2>Upload Your Project</h2>
+                            <p>Drag and drop your project ZIP file here</p>
+                            <p class="upload-hint">or</p>
+                            <button class="btn btn-primary" id="browse-btn">Browse Files</button>
+                            <input type="file" id="file-input" accept=".zip" hidden>
+                            <p class="upload-limit">Max file size: 50MB</p>
+                        </div>
+                    </div>
+
+                    <!-- Selected File Display -->
+                    <div id="file-selected" class="file-selected hidden">
+                        <div class="selected-file">
+                            <span class="file-icon">📦</span>
+                            <div class="file-info">
+                                <div class="file-name" id="selected-filename">file.zip</div>
+                                <div class="file-size" id="selected-filesize">0 MB</div>
+                            </div>
+                            <button class="btn-remove" id="remove-file">✕</button>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Form -->
+                    <div id="config-form" class="config-form hidden">
+                        <h3>Deployment Configuration</h3>
+                        
+                        <div class="form-group">
+                            <label for="repo-name">Repository Name:</label>
+                            <input type="text" id="repo-name" placeholder="my-awesome-project" value="">
+                            <small>GitHub repository name (optional)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="github-token">GitHub Token:</label>
+                            <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+                            <small>Get your token from GitHub Settings → Developer Settings</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="render-key">Render API Key (Optional):</label>
+                            <input type="password" id="render-key" placeholder="rnd_xxxxxxxxxxxx">
+                            <small>Leave empty for demo mode</small>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-primary" id="start-deploy-btn">🚀 Start Deployment</button>
+                            <button class="btn btn-secondary" id="reset-form-btn">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Display -->
+                    <div id="progress-section" class="progress-section hidden">
+                        <h3>Deployment Progress</h3>
+                        
+                        <div class="progress-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-info">
+                                    <div class="step-title">Upload</div>
+                                    <div class="step-status" id="step-upload">Pending</div>
+                                </div>
+                            </div>
+                            <div class="step-divider"></div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-info">
+                                    <div class="step-title">Analyze</div>
+                                    <div class="step-status" id="step-analyze">Pending</div>
+                                </div>
+                            </div>
+                            <div class="step-divider"></div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-info">
+                                    <div class="step-title">GitHub</div>
+                                    <div class="step-status" id="step-github">Pending</div>
+                                </div>
+                            </div>
+                            <div class="step-divider"></div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <div class="step-info">
+                                    <div class="step-title">Deploy</div>
+                                    <div class="step-status" id="step-deploy">Pending</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress-bar-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progress-fill"></div>
+                            </div>
+                            <div class="progress-text">
+                                <span id="progress-percent">0%</span>
+                                <span id="progress-message">Waiting...</span>
+                            </div>
+                        </div>
+
+                        <div class="logs-panel">
+                            <h4>Logs</h4>
+                            <div class="logs-content" id="logs-content">
+                                <p class="log-entry">Ready to deploy...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Result Display -->
+                    <div id="result-section" class="result-section hidden">
+                        <h3>Deployment Complete! 🎉</h3>
+                        
+                        <div class="result-cards">
+                            <div class="result-card">
+                                <div class="result-icon">💾</div>
+                                <div class="result-content">
+                                    <div class="result-label">GitHub Repository</div>
+                                    <a href="#" id="github-link" target="_blank" class="result-link">View Repository</a>
+                                    <button class="btn-copy" id="copy-github" title="Copy link">📋</button>
+                                </div>
+                            </div>
+                            <div class="result-card">
+                                <div class="result-icon">🌐</div>
+                                <div class="result-content">
+                                    <div class="result-label">Live Deployment</div>
+                                    <a href="#" id="deploy-link" target="_blank" class="result-link">Visit Live Site</a>
+                                    <button class="btn-copy" id="copy-deploy" title="Copy link">📋</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-info">
+                            <h4>Project Information</h4>
+                            <div id="result-info-content" class="info-grid">
+                                <!-- Dynamically filled -->
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn btn-primary" id="new-deploy-btn">📤 New Deployment</button>
+                            <button class="btn btn-secondary" id="view-github-btn">🔗 GitHub</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Deployments Page -->
+            <section id="deployments-page" class="page">
+                <div class="deployments-container">
+                    <div class="section-header">
+                        <h2>All Deployments</h2>
+                        <button class="btn btn-small" id="refresh-deployments">🔄 Refresh</button>
+                    </div>
+
+                    <div class="deployments-list" id="deployments-list">
+                        <p class="empty-state">No deployments found</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Page -->
+            <section id="settings-page" class="page">
+                <div class="settings-container">
+                    <div class="settings-group">
+                        <h2>API Configuration</h2>
+                        <p class="settings-description">Configure your API keys for GitHub and Render</p>
+
+                        <div class="settings-item">
+                            <label>GitHub Token</label>
+                            <input type="password" id="setting-github-token" placeholder="Your GitHub token">
+                            <small>Save this for future deployments</small>
+                        </div>
+
+                        <div class="settings-item">
+                            <label>Render API Key</label>
+                            <input type="password" id="setting-render-key" placeholder="Your Render key">
+                            <small>Optional - leave blank for demo mode</small>
+                        </div>
+
+                        <button class="btn btn-primary" id="save-settings">💾 Save Settings</button>
+                    </div>
+
+                    <div class="settings-group">
+                        <h2>Preferences</h2>
+                        
+                        <div class="settings-item">
+                            <label>Auto-theme based on time</label>
+                            <input type="checkbox" id="setting-auto-theme">
+                            <small>Automatically switch theme at 6 PM</small>
+                        </div>
+
+                        <div class="settings-item">
+                            <label>Show notifications</label>
+                            <input type="checkbox" id="setting-notifications" checked>
+                            <small>Get notified when deployment completes</small>
+                        </div>
+                    </div>
+
+                    <div class="settings-group danger">
+                        <h2>Danger Zone</h2>
+                        <button class="btn btn-danger" id="clear-history">🗑️ Clear Deployment History</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Toast Notifications -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p id="loading-text">Processing...</p>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

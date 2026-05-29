@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Cinematic Premium CSS Animations (animations.css)
+   Ambient Glow loops, Perspective tilts, Glass pulses, & Morphing Views
+   ========================================================================== */
+
+/* --- 1. Ambient Background Particle Loop --- */
+@keyframes floatGlow {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    33% {
+        transform: translate(10vw, 5vh) scale(1.1) rotate(120deg);
+    }
+    66% {
+        transform: translate(-5vw, 15vh) scale(0.9) rotate(240deg);
+    }
+    100% {
+        transform: translate(0, 0) scale(1) rotate(360deg);
+    }
+}
+
+/* --- 2. Dynamic View Swapping Fade --- */
+@keyframes fadeInView {
+    0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* --- 3. Music Album Vinyl CD Spin Animation --- */
+@keyframes spinVinyl {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spin-vinyl-animation {
+    animation: spinVinyl 20s linear infinite;
+}
+
+.spin-vinyl-animation.paused {
+    animation-play-state: paused;
+}
+
+/* --- 4. Glowing Breathe Effect (Atmospheric play mode) --- */
+@keyframes breatheGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 229, 255, 0.15), 0 0 40px rgba(112, 0, 255, 0.05);
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(0, 229, 255, 0.35), 0 0 70px rgba(112, 0, 255, 0.15);
+    }
+}
+
+.breathe-glow-effect {
+    animation: breatheGlow 4s ease-in-out infinite;
+}
+
+/* --- 5. Soundwave Visualizer Bar Pulses (Fallback CSS Visuals) --- */
+@keyframes pulseSoundwave {
+    0%, 100% {
+        height: 4px;
+    }
+    50% {
+        height: 24px;
+    }
+}
+
+.soundwave-bar {
+    width: 3px;
+    background: linear-gradient(to top, var(--accent-blue), var(--accent-purple));
+    border-radius: 10px;
+    animation: pulseSoundwave 1.2s ease-in-out infinite;
+}
+
+.soundwave-bar:nth-child(2) { animation-delay: 0.15s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.3s; }
+.soundwave-bar:nth-child(4) { animation-delay: 0.45s; }
+.soundwave-bar:nth-child(5) { animation-delay: 0.2s; }
+.soundwave-bar:nth-child(6) { animation-delay: 0.35s; }
+
+/* --- 6. Glitch / Shimmer Loading Animation (Bulk Downloader UI) --- */
+@keyframes progressShimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: 200px 0;
+    }
+}
+
+.progress-shimmer-bg {
+    background: linear-gradient(90deg, 
+        rgba(255,255,255,0.08) 25%, 
+        rgba(255,255,255,0.2) 50%, 
+        rgba(255,255,255,0.08) 75%
+    );
+    background-size: 200px 100%;
+    animation: progressShimmer 1.5s infinite linear;
+}
+
+/* --- 7. Inertia Card morph expansion --- */
+@keyframes cardExpand {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.card-expand-anim {
+    animation: cardExpand 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* --- 8. Floating Active Mini-Player EQ bar --- */
+@keyframes floatEQ {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+}
+
+.eq-float {
+    animation: floatEQ 2s ease-in-out infinite;
+}
+
+/* --- 9. Luxury Pulse Accent --- */
+@keyframes accentPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 229, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+    }
+}
+
+.accent-pulse-trigger {
+    animation: accentPulse 2s infinite;
+}

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI DevOps Launcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-theme="dark">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">AI</span>
+      <div>
+        <strong>DevOps</strong>
+        <small>Auto deployer</small>
+      </div>
+    </div>
+    <nav>
+      <a class="active" href="#dashboard">Dashboard</a>
+      <a href="#upload">Upload</a>
+      <a href="#deployments">Deployments</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="hero-copy">
+        <p class="eyebrow">Full-stack automation</p>
+        <h1>Ship a zipped project to GitHub and Render</h1>
+        <p class="hero-text">Upload a project, inspect the detected stack, track the pipeline live, and keep your latest deployments close at hand.</p>
+      </div>
+      <div class="top-actions">
+        <label class="theme-picker">
+          Theme
+          <select id="themeSelect">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="neon">Neon</option>
+            <option value="purple">Purple</option>
+            <option value="whatsapp">WhatsApp</option>
+            <option value="ocean">Ocean</option>
+            <option value="matrix">Matrix</option>
+            <option value="sunset">Sunset</option>
+            <option value="rose">Rose</option>
+            <option value="graphite">Graphite</option>
+          </select>
+        </label>
+        <a class="logout-link" href="/logout">Logout</a>
+      </div>
+    </header>
+
+    <section class="workflow-grid">
+      <div class="panel spotlight-panel">
+        <div class="spotlight-grid">
+          <article class="spotlight-card">
+            <label>Current stage</label>
+            <strong id="heroStatus">Idle</strong>
+            <p id="heroStatusNote">Waiting for your next upload.</p>
+          </article>
+          <article class="spotlight-card">
+            <label>Deploy health</label>
+            <strong id="deployHealth">No active deploy</strong>
+            <p id="deployHealthNote">Render and GitHub checks appear here.</p>
+          </article>
+          <article class="spotlight-card">
+            <label>Latest live URL</label>
+            <strong id="heroLinkText">Not available yet</strong>
+            <p id="heroLinkNote">Your most recent production link stays visible here.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="panel health-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">System</p>
+            <h2>Readiness</h2>
+          </div>
+          <span class="status-pill" id="userPill">Admin</span>
+        </div>
+        <div class="health-grid" id="healthGrid">
+          <span class="health-chip">Checking config...</span>
+        </div>
+      </div>
+
+      <div class="panel upload-panel" id="upload">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Upload</p>
+            <h2>Project zip</h2>
+          </div>
+          <span class="status-pill" id="overallStatus">Idle</span>
+        </div>
+
+        <form id="uploadForm">
+          <label class="dropzone" id="dropzone">
+            <input type="file" id="fileInput" accept=".zip" hidden>
+            <span class="drop-icon">+</span>
+            <strong>Drop your project zip here</strong>
+            <small id="selectedFile">or click to choose a file</small>
+          </label>
+
+          <details class="advanced-options">
+            <summary>Advanced options</summary>
+            <div class="selector-block" id="projectSelectorBlock" hidden>
+              <label>
+                Project folder inside zip
+                <select id="projectSelector"></select>
+              </label>
+              <small id="projectSelectorNote">Everything in the zip will go to GitHub. This choice only decides which folder Render deploys.</small>
+            </div>
+            <div class="field-grid">
+              <label>
+                GitHub repo name
+                <input id="repoNameInput" type="text" placeholder="Auto generated">
+              </label>
+              <label>
+                Render service name
+                <input id="serviceNameInput" type="text" placeholder="Auto generated">
+              </label>
+            </div>
+            <label class="checkbox-row">
+              <input id="privateRepoInput" type="checkbox">
+              Create private GitHub repository
+            </label>
+          </details>
+
+          <button class="primary-btn" id="startButton" type="submit">
+            <span class="loader" id="buttonLoader"></span>
+            Start Automation
+          </button>
+        </form>
+      </div>
+
+      <div class="panel" id="dashboard">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Progress</p>
+            <h2>Deployment pipeline</h2>
+          </div>
+          <strong id="progressText">0%</strong>
+        </div>
+
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <ol class="steps" id="steps">
+          <li data-step="Uploading"><span></span>Uploading</li>
+          <li data-step="Analyzing"><span></span>Analyzing</li>
+          <li data-step="GitHub Push"><span></span>Pushing</li>
+          <li data-step="Deploying"><span></span>Deploying</li>
+          <li data-step="Done"><span></span>Done</li>
+        </ol>
+
+        <div class="insights">
+          <div>
+            <label>Project type</label>
+            <strong id="projectTypeText">Not analyzed</strong>
+          </div>
+          <div>
+            <label>Build</label>
+            <code id="buildCommandText">Waiting</code>
+          </div>
+          <div>
+            <label>Start</label>
+            <code id="startCommandText">Waiting</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel result-panel" id="deployments">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Result</p>
+            <h2>Links</h2>
+          </div>
+          <div class="toolbar">
+            <button class="icon-btn" id="openGithubButton" type="button">Open GitHub</button>
+            <button class="icon-btn" id="openRenderButton" type="button">Open Live</button>
+          </div>
+        </div>
+
+        <div class="result-row">
+          <label>GitHub repository</label>
+          <div>
+            <a id="githubLink" href="#" target="_blank" rel="noreferrer">Waiting for repo</a>
+            <button class="icon-btn" data-copy="githubLink" type="button">Copy</button>
+          </div>
+        </div>
+
+        <div class="result-row">
+          <label>Render live link</label>
+          <div>
+            <a id="renderLink" href="#" target="_blank" rel="noreferrer">Waiting for deploy</a>
+            <button class="icon-btn" data-copy="renderLink" type="button">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel logs-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">Logs</p>
+            <h2>Runtime events</h2>
+          </div>
+          <div class="toolbar">
+            <input id="logSearchInput" type="text" placeholder="Search logs">
+            <button class="icon-btn" id="copyLogsButton" type="button">Copy Logs</button>
+            <button class="icon-btn" id="toggleAutoscrollButton" type="button">Auto-scroll On</button>
+          </div>
+        </div>
+        <pre id="logs">Ready.</pre>
+      </div>
+
+      <div class="panel history-panel">
+        <div class="panel-header">
+          <div>
+            <p class="eyebrow">History</p>
+            <h2>Recent deployments</h2>
+          </div>
+          <button class="icon-btn" id="clearHistoryButton" type="button">Clear</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <p class="empty-state">No deployments yet.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

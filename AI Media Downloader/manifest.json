@@ -1,0 +1,26 @@
+{
+  "name": "AURA // Cinematic Music & Video Platform",
+  "short_name": "AURA",
+  "start_url": "/index.html",
+  "id": "/index.html",
+  "display": "standalone",
+  "background_color": "#060609",
+  "theme_color": "#060609",
+  "orientation": "any",
+  "scope": "/",
+  "description": "Premium cinematic-grade luxury music streaming, video playback, collection queue, and parallel bulk downloader.",
+  "icons": [
+    {
+      "src": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=192&auto=format&fit=crop",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=512&auto=format&fit=crop",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

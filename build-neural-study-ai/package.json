@@ -1,0 +1,44 @@
+{
+  "name": "neural-study-ai",
+  "version": "1.0.0",
+  "description": "Premium AI-powered study assistant with ChatGPT-like interface. Ask anything, get explanations, generate notes, create quizzes - all without API keys.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -p 3000",
+    "dev": "npx live-server --port=3000",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "ai",
+    "study",
+    "education",
+    "chatgpt",
+    "learning",
+    "assistant",
+    "gpt-4",
+    "claude",
+    "gemini",
+    "notes",
+    "quiz",
+    "flashcards"
+  ],
+  "author": "Neural Study AI Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/neural-study-ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/neural-study-ai/issues"
+  },
+  "homepage": "https://github.com/yourusername/neural-study-ai#readme",
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

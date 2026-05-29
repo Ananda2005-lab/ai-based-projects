@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <img src="{{ product.image_url if product.image_url else 'https://via.placeholder.com/600x400?text=Product+Image' }}" class="img-fluid rounded shadow" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+        <h2>{{ product.name }}</h2>
+        <p class="text-muted">{{ product.category }} | Stock: {{ product.stock }} kg available</p>
+        <h3 class="text-success my-3">₹{{ product.price }} / kg</h3>
+        <p>{{ product.description }}</p>
+        <hr>
+        <p><strong>Sold by:</strong> {{ product.farmer.username }} from {{ product.farmer.location }}</p>
+        
+        {% if current_user.is_authenticated and current_user.role == 'customer' %}
+            <form method="POST" action="{{ url_for('main.add_to_cart', id=product.id) }}" class="d-flex gap-2 align-items-end">
+                <div style="width: 100px;">
+                    <label class="small">Quantity (kg)</label>
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success flex-grow-1">Add to Cart</button>
+            </form>
+        {% elif not current_user.is_authenticated %}
+            <a href="{{ url_for('main.login') }}" class="btn btn-primary">Login to Buy</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

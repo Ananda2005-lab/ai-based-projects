@@ -1,0 +1,175 @@
+/* ============================================
+   NEURAL STUDY AI - ANIMATIONS
+   ============================================ */
+
+@keyframes bgPulse {
+    0%, 100% { 
+        opacity: 1; 
+        transform: scale(1); 
+    }
+    50% { 
+        opacity: 0.8; 
+        transform: scale(1.05); 
+    }
+}
+
+@keyframes logoGlow {
+    0%, 100% { 
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.4); 
+    }
+    50% { 
+        box-shadow: 0 0 30px rgba(0, 217, 255, 0.6), 0 0 40px rgba(157, 78, 221, 0.3); 
+    }
+}
+
+@keyframes orbFloat {
+    0%, 100% { 
+        transform: translateY(0px); 
+    }
+    50% { 
+        transform: translateY(-20px); 
+    }
+}
+
+@keyframes corePulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 0.8; 
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.2); 
+        opacity: 1; 
+    }
+}
+
+@keyframes rotate {
+    from { 
+        transform: translate(-50%, -50%) rotate(0deg); 
+    }
+    to { 
+        transform: translate(-50%, -50%) rotate(360deg); 
+    }
+}
+
+@keyframes messageSlide {
+    from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+@keyframes typingBounce {
+    0%, 60%, 100% { 
+        transform: translateY(0); 
+        opacity: 0.5; 
+    }
+    30% { 
+        transform: translateY(-10px); 
+        opacity: 1; 
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+/* Entrance animations */
+.animate-fadeIn {
+    animation: fadeIn 0.5s ease;
+}
+
+.animate-slideUp {
+    animation: slideInUp 0.5s ease;
+}
+
+.animate-slideDown {
+    animation: slideInDown 0.5s ease;
+}
+
+.animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.animate-glow {
+    animation: glow 2s ease-in-out infinite;
+}

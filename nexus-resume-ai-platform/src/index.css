@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+:root {
+  --nx-navy: #060a1a;
+  --nx-cyan: #22d3ee;
+  --nx-purple: #a855f7;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #050813;
+  color: #e2e8f0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+/* Scrollbars */
+.nx-scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.nx-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.nx-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 8px;
+}
+.nx-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* Animated ambient gradient */
+@keyframes nx-drift {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4%, -3%) scale(1.15); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.nx-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: nx-drift 18s ease-in-out infinite;
+}
+
+@keyframes nx-gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.nx-text-gradient {
+  background: linear-gradient(90deg, #22d3ee, #a855f7, #22d3ee);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: nx-gradient-shift 6s linear infinite;
+}
+
+.nx-glass {
+  background: rgba(17, 24, 48, 0.55);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.nx-glass-strong {
+  background: rgba(13, 19, 41, 0.8);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+@keyframes nx-fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.nx-fade-up {
+  animation: nx-fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes nx-pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(34, 211, 238, 0); }
+}
+.nx-pulse {
+  animation: nx-pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes nx-spin-slow {
+  to { transform: rotate(360deg); }
+}
+.nx-spin { animation: nx-spin-slow 1s linear infinite; }
+
+@keyframes nx-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.nx-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.02) 25%, rgba(148,163,184,0.12) 50%, rgba(255,255,255,0.02) 75%);
+  background-size: 200% 100%;
+  animation: nx-shimmer 1.5s infinite;
+}
+
+.nx-btn-glow {
+  background: linear-gradient(120deg, #06b6d4, #7c3aed);
+  transition: all 0.25s ease;
+}
+.nx-btn-glow:hover {
+  box-shadow: 0 8px 30px rgba(124, 58, 237, 0.45);
+  transform: translateY(-1px);
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(148, 163, 184, 0.45);
+}
+
+/* Print: only the resume sheet */
+@media print {
+  body { overflow: visible; background: #fff; }
+  .nx-no-print { display: none !important; }
+  .nx-print-area {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+}

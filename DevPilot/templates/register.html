@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - AI DevOps Launcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="auth-body" data-theme="dark">
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <div class="brand auth-brand">
+        <span class="brand-mark">AI</span>
+        <div>
+          <strong>DevOps</strong>
+          <small>Create account</small>
+        </div>
+      </div>
+      <p class="eyebrow">Register</p>
+      <h1>Make your deploy account</h1>
+      {% if error %}
+      <p class="auth-error">{{ error }}</p>
+      {% endif %}
+      <form class="auth-form" method="post">
+        <label>
+          Username
+          <input name="username" type="text" autocomplete="username" required autofocus>
+        </label>
+        <label>
+          Password
+          <input name="password" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <label>
+          Confirm password
+          <input name="confirm_password" type="password" autocomplete="new-password" minlength="6" required>
+        </label>
+        <button class="primary-btn" type="submit">Create Account</button>
+      </form>
+      <p class="auth-switch">Already registered? <a href="/login">Login</a></p>
+    </section>
+  </main>
+</body>
+</html>

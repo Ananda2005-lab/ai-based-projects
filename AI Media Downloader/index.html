@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AURA // Cinematic Premium Audio & Video Platform</title>
+    
+    <!-- PWA Configs -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#060609">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-192.png">
+    
+    <!-- CSS Stylesheets -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+</head>
+<body>
+
+    <!-- Dynamic Immersive Background Atmosphere -->
+    <div id="ambient-glow-wrapper">
+        <div class="glow-particle blue"></div>
+        <div class="glow-particle pink"></div>
+        <div class="glow-particle purple"></div>
+        <canvas id="ambient-particles-canvas"></canvas>
+    </div>
+
+    <!-- App Layout Container -->
+    <div id="app-container">
+        
+        <!-- ==========================================
+             1. DESKTOP SIDEBAR PANEL
+             ========================================== -->
+        <aside id="sidebar-panel">
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+                    </svg>
+                </div>
+                <span class="text-logo">AURA</span>
+            </div>
+            
+            <nav class="nav-group">
+                <span class="nav-label">Discover</span>
+                <div class="nav-item active" data-target="home">
+                    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    <span>Home</span>
+                </div>
+                <div class="nav-item" data-target="search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Search</span>
+                </div>
+                <div class="nav-item" data-target="queue">
+                    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    <span>Collection Queue</span>
+                </div>
+            </nav>
+
+            <nav class="nav-group">
+                <span class="nav-label">My Space</span>
+                <div class="nav-item" data-target="library">
+                    <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span>Media Library</span>
+                </div>
+                <div class="nav-item" data-target="settings">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span>Settings</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ==========================================
+             2. MAIN VIEWS PANELS
+             ========================================== -->
+        <main id="main-content">
+            
+            <!-- VIEW: HOME SCREEN -->
+            <section id="view-home" class="view-panel active">
+                <div class="hero-atmosphere">
+                    <div class="hero-overlay"></div>
+                    <div class="hero-content">
+                        <span class="hero-tag">Cinema Trailer Atmosphere</span>
+                        <h1 class="hero-title">Experience Media in Luxury Obsidian</h1>
+                        <p class="hero-desc">Discover dramatic cinematic scores and beautiful looping videos. Seamlessly stream, queue, and download files directly in 320kbps and 4K quality.</p>
+                        <button class="hero-btn" id="hero-action-play">
+                            <svg width="18" height="18" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            <span>Listen to Featured Track</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">Continue Listening</h2>
+                </div>
+                <div class="grid-cards" id="home-recent-grid">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">Trending Soundscapes</h2>
+                </div>
+                <div class="grid-cards" id="home-featured-grid">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- VIEW: SEARCH ENGINE -->
+            <section id="view-search" class="view-panel">
+                <div class="search-experience-container">
+                    <div class="search-bar-wrapper">
+                        <div class="search-input-box">
+                            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            <input type="text" id="search-input-field" placeholder="Search song, video, artist, album..." autocomplete="off">
+                            <button id="voice-search-btn" class="voice-btn" title="Voice Search">
+                                <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Autocomplete smart suggestions dropdown -->
+                        <div id="autocomplete-dropdown" class="autocomplete-panel">
+                            <!-- Populated in search.js -->
+                        </div>
+                    </div>
+
+                    <!-- Media Filter Tabs -->
+                    <div class="filter-tabs-container">
+                        <div class="filter-tab active" data-type="all">All Media</div>
+                        <div class="filter-tab" data-type="music">Music</div>
+                        <div class="filter-tab" data-type="video">Cinematic Videos</div>
+                    </div>
+
+                    <div class="section-header">
+                        <h2 class="section-title" id="search-results-title">Popular Searches</h2>
+                    </div>
+                    
+                    <div class="grid-cards" id="search-results-grid">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: COLLECTION QUEUE -->
+            <section id="view-queue" class="view-panel">
+                <div class="queue-header-actions">
+                    <div>
+                        <h1 class="view-title">Collection Queue</h1>
+                        <p class="view-subtitle" id="queue-tracks-count">0 items ready to process</p>
+                    </div>
+                    <div class="queue-action-buttons">
+                        <button id="queue-download-all-btn" class="queue-action-btn primary">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <span>Download Queue</span>
+                        </button>
+                        <button id="queue-clear-all-btn" class="queue-action-btn secondary">Clear All</button>
+                    </div>
+                </div>
+
+                <!-- Custom Queue List Container -->
+                <div id="queue-list-container" class="queue-items-list">
+                    <!-- Populated dynamically via JS -->
+                    <div class="empty-state-card">
+                        <p>Your queue is empty. Explore and add tracks to download them in bulk!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: MEDIA LIBRARY -->
+            <section id="view-library" class="view-panel">
+                <div class="library-tabs-navigation">
+                    <div class="lib-tab active" data-lib="music">Downloaded Music</div>
+                    <div class="lib-tab" data-lib="videos">Downloaded Videos</div>
+                    <div class="lib-tab" data-lib="favorites">My Favorites</div>
+                    <div class="lib-tab" data-lib="history">Recent History</div>
+                </div>
+
+                <div class="library-content-container">
+                    <div class="section-header">
+                        <h2 class="section-title" id="library-section-title">My Downloaded Tracks</h2>
+                    </div>
+                    <div class="grid-cards" id="library-results-grid">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW: SETTINGS -->
+            <section id="view-settings" class="view-panel">
+                <h1 class="view-title" style="margin-bottom: 30px;">System Preferences</h1>
+                
+                <div class="settings-grid">
+                    <!-- Theme & UI Settings -->
+                    <div class="settings-card">
+                        <h3 class="settings-card-title">Theme & Ambient Lighting</h3>
+                        <div class="setting-row">
+                            <label>Ambient Particle Speed</label>
+                            <input type="range" class="setting-slider" id="pref-particle-speed" min="0" max="100" value="50">
+                        </div>
+                        <div class="setting-row">
+                            <label>Obsidian Dark mode level</label>
+                            <select class="setting-dropdown" id="pref-theme-select">
+                                <option value="obsidian">Vibrant Obsidian (Recommended)</option>
+                                <option value="pitch">Pitch Black Chrome</option>
+                                <option value="cyber">Cyber Accent Blue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Downloader Settings -->
+                    <div class="settings-card">
+                        <h3 class="settings-card-title">Bulk Download Settings</h3>
+                        <div class="setting-row">
+                            <label>Maximum Parallel Threads</label>
+                            <input type="number" class="setting-number-input" id="pref-max-downloads" min="1" max="5" value="3">
+                        </div>
+                        <div class="setting-row">
+                            <label>Quality Preferences</label>
+                            <select class="setting-dropdown" id="pref-quality-select">
+                                <option value="320">Audio 320kbps / Video 4K (FLAC/MP4)</option>
+                                <option value="192">Audio 192kbps / Video 1080p</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Storage / Database Settings -->
+                    <div class="settings-card">
+                        <h3 class="settings-card-title">Storage & Database Utilities</h3>
+                        <p class="settings-card-desc">Clear cached tracks, wipe play histories, and release browser database handles.</p>
+                        <div class="settings-utility-buttons">
+                            <button class="settings-utility-btn" id="util-clear-history">Wipe Playback History</button>
+                            <button class="settings-utility-btn" id="util-clear-search">Wipe Search Cache</button>
+                            <button class="settings-utility-btn" id="util-clear-pwa-cache">Reset PWA Cache</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- ==========================================
+             3. PERSISTENT MINI PLAYER BAR
+             ========================================== -->
+        <footer id="mini-player">
+            <!-- Timeline indicator -->
+            <div id="player-timeline-container">
+                <div id="player-progress-bar">
+                    <div id="player-progress-handle"></div>
+                </div>
+            </div>
+
+            <div class="mini-player-track">
+                <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=200&auto=format&fit=crop" alt="Album Cover" class="mini-player-art" id="current-track-art">
+                <div class="mini-player-details">
+                    <div class="mini-player-title" id="current-track-title">AURA Soundscapes</div>
+                    <div class="mini-player-artist" id="current-track-artist">Select a track to play</div>
+                </div>
+            </div>
+
+            <div class="mini-player-controls">
+                <div class="control-buttons">
+                    <button class="control-btn prev-btn" id="player-prev-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+                    </button>
+                    <button class="control-btn play-pause" id="player-play-btn">
+                        <svg viewBox="0 0 24 24" id="play-icon-svg"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                    </button>
+                    <button class="control-btn next-btn" id="player-next-btn">
+                        <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                    </button>
+                </div>
+                <div class="player-timer">
+                    <span id="player-time-current">00:00</span>
+                    <span>/</span>
+                    <span id="player-time-total">00:00</span>
+                </div>
+            </div>
+
+            <div class="mini-player-extra">
+                <div class="volume-container">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" id="volume-icon-btn"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                    <input type="range" class="volume-slider" id="player-volume-slider" min="0" max="100" value="80">
+                </div>
+                <div class="fullscreen-toggle-btn" id="player-expand-btn" title="Expand Full Theater Player">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                </div>
+            </div>
+        </footer>
+
+        <!-- ==========================================
+             4. MOBILE BOTTOM NAV BAR
+             ========================================== -->
+        <nav id="mobile-navigation-bar">
+            <div class="mobile-nav-item active" data-target="home">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+            </div>
+            <div class="mobile-nav-item" data-target="search">
+                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span>Search</span>
+            </div>
+            <div class="mobile-nav-item" data-target="queue">
+                <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                <span>Queue</span>
+            </div>
+            <div class="mobile-nav-item" data-target="library">
+                <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>Library</span>
+            </div>
+            <div class="mobile-nav-item" data-target="settings">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Settings</span>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ==========================================
+         5. FULLSCREEN IMMERSIVE MEDIA PLAYER
+         ========================================== -->
+    <div id="fullscreen-player-overlay">
+        <!-- Close overlay trigger -->
+        <div id="fullscreen-close-btn" class="close-overlay-trigger">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+
+        <div class="fullscreen-player-content">
+            <!-- Active Video Render Area -->
+            <div id="video-player-container" class="cinematic-video-canvas">
+                <video id="html5-video-node" preload="auto"></video>
+                <div class="video-overlay-controls">
+                    <!-- Floating reactive bars inside video playing -->
+                </div>
+            </div>
+
+            <!-- Active Audio Vinyl CD Display -->
+            <div id="music-vinyl-container" class="cinematic-music-cd-wrapper">
+                <div class="vinyl-record spin-vinyl-animation paused" id="player-spinning-disc">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=400&auto=format&fit=crop" alt="Vinyl Art" id="fullscreen-track-art">
+                    <div class="vinyl-center-pin"></div>
+                </div>
+            </div>
+
+            <!-- Immersive Web Audio Soundwave EQ Canvas -->
+            <div class="audio-visualizer-canvas-wrapper">
+                <canvas id="audio-visualizer-canvas"></canvas>
+            </div>
+
+            <!-- Metadata Track details -->
+            <div class="fullscreen-track-meta">
+                <h1 id="fullscreen-track-title">AURA Soundscapes</h1>
+                <p id="fullscreen-track-artist">Hans Zimmer Style Orchestra</p>
+                <span class="atmosphere-mode-badge" id="fullscreen-media-badge">Cinematic Music</span>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="fullscreen-timeline-wrapper">
+                <span class="fs-time" id="fs-time-current">00:00</span>
+                <div id="fs-timeline-scrub-bar">
+                    <div id="fs-progress-fill">
+                        <div id="fs-progress-handle"></div>
+                    </div>
+                </div>
+                <span class="fs-time" id="fs-time-total">00:00</span>
+            </div>
+
+            <!-- Floating Controls Panel -->
+            <div class="fullscreen-control-buttons">
+                <button class="control-btn fs-secondary-btn" id="fs-shuffle-btn" title="Shuffle Play">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>
+                </button>
+                <button class="control-btn fs-prev-btn" id="fs-prev-btn">
+                    <svg viewBox="0 0 24 24"><polygon points="19 20 9 12 19 4 19 20"/><line x1="5" y1="19" x2="5" y2="5"/></svg>
+                </button>
+                <button class="control-btn fs-play-pause-btn" id="fs-play-btn">
+                    <svg viewBox="0 0 24 24" id="fs-play-icon-svg"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                </button>
+                <button class="control-btn fs-next-btn" id="fs-next-btn">
+                    <svg viewBox="0 0 24 24"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+                </button>
+                <button class="control-btn fs-secondary-btn" id="fs-loop-btn" title="Loop Playlist">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14M7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Native Audio Node serving as background player -->
+    <audio id="html5-audio-node" preload="auto"></audio>
+
+    <!-- JS Application Scripts -->
+    <script src="/js/app.js"></script>
+    <script src="/js/search.js"></script>
+    <script src="/js/player.js"></script>
+    <script src="/js/queue.js"></script>
+    <script src="/js/download.js"></script>
+    <script src="/js/library.js"></script>
+    <script src="/js/settings.js"></script>
+    
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('[PWA] Service Worker registered with scope: ', reg.scope))
+                    .catch(err => console.error('[PWA] Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>

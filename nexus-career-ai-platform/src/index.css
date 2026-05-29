@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #04070f;
+  color: #e6f1ff;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #1f6feb55, #a855f755);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #22d3ee88, #a855f788);
+  background-clip: padding-box;
+}
+
+/* ---------- Glass ---------- */
+.glass {
+  background: linear-gradient(160deg, rgba(20, 32, 58, 0.55), rgba(8, 14, 30, 0.55));
+  border: 1px solid rgba(120, 170, 255, 0.12);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+.glass-strong {
+  background: linear-gradient(160deg, rgba(24, 40, 72, 0.8), rgba(8, 14, 30, 0.8));
+  border: 1px solid rgba(120, 170, 255, 0.16);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 0 1px rgba(34, 211, 238, 0.25), 0 0 40px -8px rgba(34, 211, 238, 0.45);
+}
+.glow-purple {
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.25), 0 0 40px -8px rgba(168, 85, 247, 0.45);
+}
+
+.text-gradient {
+  background: linear-gradient(120deg, #67e8f9 0%, #818cf8 45%, #c084fc 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---------- Animated background ---------- */
+.aurora {
+  position: fixed;
+  inset: -30% -30% -30% -30%;
+  z-index: 0;
+  filter: blur(90px);
+  opacity: 0.55;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 40% at 20% 30%, rgba(34, 211, 238, 0.35), transparent 60%),
+    radial-gradient(45% 45% at 80% 20%, rgba(168, 85, 247, 0.32), transparent 60%),
+    radial-gradient(50% 50% at 60% 80%, rgba(59, 130, 246, 0.30), transparent 60%);
+  animation: auroraMove 18s ease-in-out infinite alternate;
+}
+@keyframes auroraMove {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(4%, -3%) scale(1.08); }
+  100% { transform: translate(-3%, 4%) scale(1.04); }
+}
+
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(120, 170, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 170, 255, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black, transparent 80%);
+}
+
+/* ---------- Core animation ---------- */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes spinReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+.spin-slow { animation: spinSlow 24s linear infinite; }
+.spin-rev { animation: spinReverse 16s linear infinite; }
+
+@keyframes pulseCore {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.07); opacity: 1; }
+}
+.pulse-core { animation: pulseCore 4s ease-in-out infinite; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float { animation: float 6s ease-in-out infinite; }
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(var(--r)) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(var(--r)) rotate(-360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(120,170,255,0.18) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in { animation: riseIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in { animation: fadeIn 0.4s ease both; }
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+.scale-in { animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+.dash {
+  stroke-dasharray: 6 8;
+  animation: dashMove 1.4s linear infinite;
+}
+@keyframes dashMove {
+  to { stroke-dashoffset: -28; }
+}
+
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(34, 211, 238, 0.4);
+}
+
+.tab-active {
+  background: linear-gradient(120deg, rgba(34, 211, 238, 0.18), rgba(168, 85, 247, 0.18));
+  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.4);
+}
+
+/* ---------- Print: only the resume ---------- */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #resume-print,
+  #resume-print * {
+    visibility: visible;
+  }
+  #resume-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .aurora,
+  .grid-overlay {
+    display: none !important;
+  }
+}

@@ -1,0 +1,120 @@
+/* --- Global Styles --- */
+:root {
+    --primary-green: #2ecc71;
+    --dark-green: #27ae60;
+    --earth-brown: #8d6e63;
+    --fresh-orange: #f39c12;
+    --light-bg: #f4f7f6;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: #333;
+}
+
+/* --- Navbar Customization --- */
+.navbar {
+    background-color: #ffffff !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: var(--dark-green) !important;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #555 !important;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--dark-green) !important;
+}
+
+.btn-custom-primary {
+    background-color: var(--dark-green);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.btn-custom-primary:hover {
+    background-color: var(--primary-green);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+    color: white;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 40px;
+}
+
+/* --- Cards & Products --- */
+.card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 3px solid var(--primary-green);
+}
+
+.price-tag {
+    font-size: 1.25rem;
+    color: var(--dark-green);
+    font-weight: bold;
+}
+
+.category-badge {
+    background-color: #e8f5e9;
+    color: var(--dark-green);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* --- Forms --- */
+.form-control, .form-select {
+    border-radius: 8px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus {
+    border-color: var(--primary-green);
+    box-shadow: 0 0 0 0.2rem rgba(46, 204, 113, 0.25);
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 40px 0;
+    margin-top: 60px;
+}

@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #0a0e1a;
+  --color-navy-900: #0f1629;
+  --color-navy-800: #141d35;
+  --color-navy-700: #1a2542;
+  --color-navy-600: #223055;
+  --color-navy-500: #2d3f6e;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-500: #06b6d4;
+  --color-cyan-300: #67e8f9;
+  --color-purple-400: #c084fc;
+  --color-purple-500: #a855f7;
+  --color-purple-600: #9333ea;
+  --color-purple-glow: rgba(168, 85, 247, 0.3);
+  --color-cyan-glow: rgba(34, 211, 238, 0.3);
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: #0a0e1a;
+  color: #e2e8f0;
+  font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f1629;
+}
+::-webkit-scrollbar-thumb {
+  background: #2d3f6e;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b5285;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(15, 22, 41, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-strong {
+  background: rgba(15, 22, 41, 0.85);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card {
+  background: rgba(20, 29, 53, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(34, 211, 238, 0.08);
+  box-shadow: 0 0 40px rgba(168, 85, 247, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Glow effects */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.15), 0 0 40px rgba(34, 211, 238, 0.05);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.15), 0 0 40px rgba(168, 85, 247, 0.05);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 20px rgba(34, 211, 238, 0.5);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+/* Terminal */
+.terminal {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Code syntax colors */
+.syntax-keyword { color: #c084fc; }
+.syntax-string { color: #4ade80; }
+.syntax-comment { color: #64748b; }
+.syntax-function { color: #22d3ee; }
+.syntax-number { color: #fbbf24; }
+.syntax-operator { color: #f472b6; }
+.syntax-type { color: #60a5fa; }
+.syntax-variable { color: #e2e8f0; }
+
+/* Selection */
+::selection {
+  background: rgba(168, 85, 247, 0.3);
+  color: #fff;
+}
+
+/* Input focus */
+input:focus, textarea:focus {
+  outline: none;
+}
+
+/* Grid background */
+.grid-bg {
+  background-image: 
+    linear-gradient(rgba(34, 211, 238, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 211, 238, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}

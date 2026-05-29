@@ -1,0 +1,216 @@
+/* ==========================================================================
+   Responsive Architecture Layout System (responsive.css)
+   Adapts from Desktop Side-Nav Dashboard to Mobile Floating Shell bottom-nav
+   ========================================================================== */
+
+/* Mobile Bottom Navigation (Hidden on desktop by default) */
+#mobile-navigation-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 64px;
+    background: rgba(8, 8, 12, 0.95);
+    border-top: 1px solid var(--color-border);
+    backdrop-filter: var(--glass-blur);
+    z-index: 99;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.8);
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 10px;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+}
+
+.mobile-nav-item svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    transition: var(--transition-smooth);
+}
+
+.mobile-nav-item.active {
+    color: var(--accent-blue);
+}
+
+.mobile-nav-item.active svg {
+    stroke: var(--accent-blue);
+    filter: drop-shadow(0 0 4px var(--accent-blue));
+}
+
+/* --- MOBILE BREAKPOINT (< 992px) --- */
+@media screen and (max-width: 992px) {
+    /* Modify primary App Grid layout */
+    #app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 134px; /* main content, bottom stack (player + nav) */
+        grid-template-areas: 
+            "main"
+            "player";
+        height: 100vh;
+        width: 100vw;
+    }
+
+    /* Hide Desktop Sidebar */
+    #sidebar-panel {
+        display: none !important;
+    }
+
+    /* Show Mobile Bottom Nav */
+    #mobile-navigation-bar {
+        display: flex;
+    }
+
+    /* Rescale Main container spacing */
+    #main-content {
+        padding: 20px 20px;
+        padding-bottom: 40px;
+    }
+
+    /* Hero section resizing */
+    .hero-atmosphere {
+        padding: 30px 24px;
+        margin-bottom: 24px;
+    }
+
+    .hero-title {
+        font-size: 28px;
+    }
+
+    .hero-desc {
+        font-size: 14px;
+    }
+
+    /* Grid layouts for cards */
+    .grid-cards {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .media-card {
+        padding: 10px;
+        border-radius: 16px;
+    }
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .card-artist {
+        font-size: 12px;
+    }
+
+    .card-play-btn {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .card-play-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Modify mini-player layout for floating responsive aesthetics */
+    #mini-player {
+        position: fixed;
+        bottom: 64px; /* Sits directly on top of mobile navigation */
+        left: 10px;
+        right: 10px;
+        width: calc(100vw - 20px);
+        height: 64px;
+        border-radius: 16px;
+        border: 1px solid var(--color-border);
+        padding: 0 16px;
+        background: rgba(12, 12, 18, 0.95);
+        box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+        z-index: 98;
+    }
+
+    /* Adjust track dimensions */
+    .mini-player-track {
+        width: 55%;
+    }
+
+    .mini-player-art {
+        width: 44px;
+        height: 44px;
+        border-radius: 8px;
+    }
+
+    .mini-player-title {
+        font-size: 13px;
+    }
+
+    .mini-player-artist {
+        font-size: 11px;
+    }
+
+    /* Clean center controls for compact space */
+    .mini-player-controls {
+        width: 35%;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .player-timer {
+        display: none; /* Hide elapsed time under keys on mobile */
+    }
+
+    .control-buttons {
+        gap: 8px;
+    }
+
+    .control-btn.prev-btn,
+    .control-btn.next-btn {
+        display: none; /* Hide forward/backward on mini screen */
+    }
+
+    .control-btn.play-pause {
+        width: 38px;
+        height: 38px;
+    }
+
+    /* Hide volume slider and extra items in mobile player view */
+    .mini-player-extra {
+        width: 10%;
+        justify-content: flex-end;
+    }
+
+    .volume-container {
+        display: none;
+    }
+}
+
+/* Extra Small screens / mobile portrait overrides */
+@media screen and (max-width: 480px) {
+    .grid-cards {
+        grid-template-columns: 1fr 1fr; /* Rigid 2-column layout */
+        gap: 12px;
+    }
+
+    .hero-title {
+        font-size: 24px;
+    }
+    
+    .hero-btn {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+}

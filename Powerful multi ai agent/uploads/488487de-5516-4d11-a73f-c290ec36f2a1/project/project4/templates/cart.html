@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Your Shopping Cart</h2>
+{% if items %}
+<div class="table-responsive">
+    <table class="table table-bordered bg-white">
+        <thead class="table-light">
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>₹{{ item.product.price }}</td>
+                <td>{{ item.qty }}</td>
+                <td>₹{{ item.total }}</td>
+                <td><a href="{{ url_for('main.remove_from_cart', id=item.product.id) }}" class="btn btn-sm btn-danger">Remove</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="d-flex justify-content-end align-items-center gap-3 mt-3">
+    <h4>Total Amount: ₹{{ total }}</h4>
+    <form method="POST" action="{{ url_for('main.checkout') }}">
+        <button type="submit" class="btn btn-success btn-lg">Proceed to Checkout</button>
+    </form>
+</div>
+{% else %}
+<div class="alert alert-info">Your cart is empty. <a href="{{ url_for('main.marketplace') }}">Go Shopping</a></div>
+{% endif %}
+{% endblock %}

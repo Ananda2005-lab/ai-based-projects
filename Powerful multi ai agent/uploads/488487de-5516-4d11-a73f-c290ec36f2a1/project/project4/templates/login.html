@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4">Login</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                </form>
+                <!-- login.html ke andar, form ke neeche -->
+<form method="POST">
+    <!-- ... existing inputs for username and password ... -->
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+</form>
+
+                <!-- YE LINE YAHAN ADD KAREIN -->
+                <p class="mt-3 text-center">
+                    <a href="{{ url_for('main.forgot_password') }}" class="small text-muted">Forgot Password?</a>
+                </p>
+
+                <p class="mt-2 text-center">New user? <a href="{{ url_for('main.register') }}">Register here</a></p>
+                <p class="mt-3 text-center">New user? <a href="{{ url_for('main.register') }}">Register here</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
